@@ -16,20 +16,19 @@ class LRUCache : Cache {
             return;
         }
         
-        
         cout << "map size is " << mp.size() << "/" << cp << "\n" ;
 
         // the list is full
         if ( mp.size() >= cp ) {
-            cout << "list is full ";
+            cout << "list is full " << endl;
 
             Node* prev_node = tail->prev;
             cout << "dropping item " << tail->key << "->" << tail->value << "\n";
-            prev_node->next = nullptr;
+            //prev_node->next = nullptr; // causes segfault
             
             mp.erase(key);
             
-            prev_node->next = node;
+            //prev_node->next = node; // causes segfault
             node->prev = prev_node;
             cout << "adding first item " << key << "->" << value << "\n";
             mp.insert(pair<int, Node*>(key, node));
