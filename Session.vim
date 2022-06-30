@@ -172,6 +172,7 @@ set helplang=en
 set ignorecase
 set incsearch
 set infercase
+set makeprg=make\ test1
 set nomodeline
 set printoptions=paper:a4
 set ruler
@@ -195,6 +196,9 @@ set shortmess=aoO
 argglobal
 %argdel
 $argadd main.cpp
+set stal=2
+tabnew
+tabrewind
 edit main.cpp
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -220,9 +224,9 @@ exe '1resize ' . ((&lines * 11 + 18) / 37)
 exe 'vert 1resize ' . ((&columns * 66 + 75) / 150)
 exe '2resize ' . ((&lines * 11 + 18) / 37)
 exe 'vert 2resize ' . ((&columns * 83 + 75) / 150)
-exe '3resize ' . ((&lines * 23 + 18) / 37)
+exe '3resize ' . ((&lines * 22 + 18) / 37)
 exe 'vert 3resize ' . ((&columns * 59 + 75) / 150)
-exe '4resize ' . ((&lines * 23 + 18) / 37)
+exe '4resize ' . ((&lines * 22 + 18) / 37)
 exe 'vert 4resize ' . ((&columns * 90 + 75) / 150)
 argglobal
 setlocal keymap=
@@ -607,7 +611,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 53 - ((22 * winheight(0) + 11) / 23)
+let s:l = 53 - ((21 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -737,25 +741,177 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 10 - ((9 * winheight(0) + 11) / 23)
+let s:l = 15 - ((5 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-10
-normal! 0
+15
+normal! 013|
 wincmd w
-2wincmd w
+4wincmd w
 exe '1resize ' . ((&lines * 11 + 18) / 37)
 exe 'vert 1resize ' . ((&columns * 66 + 75) / 150)
 exe '2resize ' . ((&lines * 11 + 18) / 37)
 exe 'vert 2resize ' . ((&columns * 83 + 75) / 150)
-exe '3resize ' . ((&lines * 23 + 18) / 37)
+exe '3resize ' . ((&lines * 22 + 18) / 37)
 exe 'vert 3resize ' . ((&columns * 59 + 75) / 150)
-exe '4resize ' . ((&lines * 23 + 18) / 37)
+exe '4resize ' . ((&lines * 22 + 18) / 37)
 exe 'vert 4resize ' . ((&columns * 90 + 75) / 150)
+tabnext
+edit ~/.vimrc
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+vnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+nnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+vnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf\%[unction]\>', "bW")
+nnoremap <buffer> <silent> [] m':call search('^\s*endf\%[unction]\>', "bW")
+vnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
+nnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
+vnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+nnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+vnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf\%[unction]\>', "W")
+nnoremap <buffer> <silent> ][ m':call search('^\s*endf\%[unction]\>', "W")
+vnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
+nnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
+setlocal commentstring=\"%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'vim'
+setlocal filetype=vim
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal infercase
+setlocal iskeyword=@,48-57,_,192-255,#
+setlocal keywordprg=:help
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal nomodeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+setlocal nonumber
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'vim'
+setlocal syntax=vim
+endif
+setlocal tabstop=2
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=75
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal wincolor=
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 55 - ((34 * winheight(0) + 17) / 35)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+55
+normal! 0
 tabnext 1
-badd +19 main.cpp
-badd +0 solution.cpp
+set stal=1
+badd +1 main.cpp
+badd +1 solution.cpp
+badd +0 ~/.vimrc
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
