@@ -9,10 +9,10 @@ run0: a.out
 run1: a.out
 	cat input_1.txt | ./a.out | tee out_1.txt
 
-test1: run0
+test0: run0
 	vimdiff out_0.txt expect_0.txt
 
-test2: run1
+test1: run1
 	vimdiff out_1.txt expect_1.txt
 
 clean:
