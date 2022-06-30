@@ -1,6 +1,6 @@
 all: run0 run1
 	
-a.out:
+a.out: main.cpp solution.cpp makefile
 	g++ main.cpp
 
 run0: a.out
