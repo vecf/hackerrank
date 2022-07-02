@@ -1,25 +1,15 @@
-/* #define spacefirst */
-/* #define after */
-/* #define spaceoutput */ 
-
 class LRUCache : Cache {
     
     public:
     LRUCache(int capacity) {
         this->cp = capacity;
-#ifdef spacefirst //create fist blank line
-				cout << endl;
-#endif
     }
     
     void set(int key, int value) {
-			Node* cur = tail;
-#ifdef spaceoutput //create blank line for every set
-				cout << endl;
-#endif
 
         if ( mp.size() >= cp ) {
-			/* cout << "list full" << endl; */
+				// list full
+
             mp.erase(tail->key);
             
             Node* new_tail = tail->next;
@@ -31,85 +21,77 @@ class LRUCache : Cache {
 		Node* node =  new Node(key, value);
 	
 		if ( mp.size() == 0 ) {
-			/* cout << "list empty" << endl; */
+			//list empty
+
 			tail = head = node;
 			mp.insert(pair<int, Node*>(key, node));
-			goto done;
-			/* return; */
+			return;
 		}
 
 		if ( mp.count(key) == 0) {
-			/* cout << "key not in map";// << endl; */
+			//key not in map
 
 			node->prev = head;
 			head->next = node;
 			head = node; 
 
 			mp.insert(pair<int, Node*>(key, node));
-			goto done;
-			/* return; */
-		} else {
 
-#ifdef before //for debugging
-			cout << "mp.size()= " << mp.size() << ". Before-" ;
-			while ( cur != nullptr ) {
-				cout << cur->key << ":" << cur->value << ",";
-				cur = cur->next;
-			}
-			cout << endl;
-#endif
+			return;
+
+		} else {
 
 			Node* new_head; 
 			Node* neigh_next; 
 			Node* neigh_prev;
 
 			new_head = mp[key];
-			new_head->value = value; // forgot this line 2nd
-			/* cout<<"newhead "<<new_head->key << "->" << new_head->value << endl; */
+			new_head->value = value;
+
 			if (new_head != head) {
-				/* cout << "newhead not head" << endl; */
+				//newhead not head
+
 				neigh_next = new_head->next;
+
 			} else {
-				/* cout << "newhead is head" << endl; */
-				// nothing more to do
-				goto done;
-				/* return; */
+				//newhead is head
+
+				return;
 			}
 			if (new_head != tail) {
-				/* cout << "newhead not tail" << endl; */
+				//newhead not tail
+
 				neigh_prev = new_head->prev;
 				neigh_next->prev = neigh_prev;
 				neigh_prev->next = neigh_next;
+
 			} else {
-				/* cout << "newhead is tail" << endl; */
+				//newhead is tail
+
 				neigh_next->prev = nullptr;
 				tail = neigh_next;
 			}
 
 			new_head->next = nullptr;
 			new_head->prev = head;
-			head->next = new_head; // forgot this line 1st
+			head->next = new_head;
 			head = new_head;
 		}
 				
-		done:
-#ifdef after //for debugging
-		cur = tail;
-		while ( cur != nullptr ) {
-			cout << cur->key << ":" << cur->value << ",";
-			cur = cur->next;
-		}
-		cout << endl;
-#endif
 		return;
     }
     
     int get(int key) {
-        if ( mp.count(key) < 1 ) {
-            return -1;
-        }
-		int value = mp[key]->value;
-		/* this->set(key,value); //refresh cache */
-        return value;
+
+		/* Since it's supposed to be LRU, I would expect to refresh least
+		 * recently used on every get too. This can be done as follows:
+		 *
+		 * this->set(key,mp[key]->value);
+		 *
+		 * Alas, the test cases show it's not what they are looking for.
+		 */
+
+        return ( mp.count(key) < 1 ) ? -1 : mp[key]->value;
     }
+
 };
