@@ -18,5 +18,9 @@ test0: run0
 test1: run1
 	vimdiff out_1.txt expect_1.txt
 
+testunlock1: a.out
+	cat unlockeds/unlocked_input01.txt | ./a.out > unlockeds/unlocked_out1.txt
+	vimdiff unlockeds/unlocked_expected01.txt unlockeds/unlocked_out1.txt
+
 clean:
-	rm -f out_0.txt out_1.txt out_2.txt a.out 
+	rm -f out_0.txt out_1.txt out_2.txt unlockeds/unlocked_out1.txt a.out 
